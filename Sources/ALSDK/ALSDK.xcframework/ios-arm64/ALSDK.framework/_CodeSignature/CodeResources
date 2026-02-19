@@ -6,7 +6,7 @@
 	<dict>
 		<key>Assets.car</key>
 		<data>
-		fu3y4qFz9SHlMxFkmWwbF9k4ltc=
+		5v5IMkwwaBkOt+iOJSYcD5ENkWA=
 		</data>
 		<key>Headers/ALSDK.h</key>
 		<data>
@@ -14,7 +14,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		hBwQlSaCHLwzNkYlnVwfnw1WKRM=
+		MnJ/P6Ds0EUG2EuWmnU7VVaTV+I=
 		</data>
 		<key>KantumruyPro-Bold.ttf</key>
 		<data>
@@ -34,23 +34,23 @@
 		</data>
 		<key>Modules/ALSDK.swiftmodule/arm64-apple-ios.abi.json</key>
 		<data>
-		Btpu/jDzmJaQCldfXdz6Z/AcxA0=
+		ZeHDsq5xptd+IsSDDYNv8H5s8CY=
 		</data>
 		<key>Modules/ALSDK.swiftmodule/arm64-apple-ios.private.swiftinterface</key>
 		<data>
-		yyF2aUXqXeCDdSEuJU/3M68pDjI=
+		xXt/ntC19gLtFeKXSQ/OVt1DiW8=
 		</data>
 		<key>Modules/ALSDK.swiftmodule/arm64-apple-ios.swiftdoc</key>
 		<data>
-		JMjhD2spn4vUKQ9yTAYNG/UuUWE=
+		TpLXa/7Kwyr7Pl0VtZp3zy1Gz9s=
 		</data>
 		<key>Modules/ALSDK.swiftmodule/arm64-apple-ios.swiftinterface</key>
 		<data>
-		yyF2aUXqXeCDdSEuJU/3M68pDjI=
+		xXt/ntC19gLtFeKXSQ/OVt1DiW8=
 		</data>
 		<key>Modules/ALSDK.swiftmodule/arm64-apple-ios.swiftmodule</key>
 		<data>
-		cSszM8+yJ/Q67q92gq/+w72AJI0=
+		OiTmEAzrrXSFPXADJU/pO7ze8qo=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -63,7 +63,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			Po5YtkC6jDYjkDjAyu1+0lcyMctIZnh0jek57mlfJIg=
+			z0hH6ldhnKGj11wQonE7E8sBCAGL+vb8WsGQoFiPb7g=
 			</data>
 		</dict>
 		<key>Headers/ALSDK.h</key>
@@ -105,35 +105,35 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			xni96ff3BgiaHeaoZcrh5SmQGZNgIxNlfyRZyIQ2qDg=
+			bboxx58dsSxhZJbXbSO5dPdL/fpxxp7cwSg8g+uTV0Y=
 			</data>
 		</dict>
 		<key>Modules/ALSDK.swiftmodule/arm64-apple-ios.private.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			sHm+UTjizfL+zY3zUxwgX6NbmUetWYv71tHIldYfO24=
+			UpAJ9LizPlEsHTP5elOS0hVk/bMUrkr5toUIFNBXMQw=
 			</data>
 		</dict>
 		<key>Modules/ALSDK.swiftmodule/arm64-apple-ios.swiftdoc</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			EYhxF0nPqbE8dqKnOZ+YqriO/4SeT3yVzEGzV2vwPI0=
+			r9DD+bZZozV00fOKR1nEkJUXtHCUht3YGzcLgizdokE=
 			</data>
 		</dict>
 		<key>Modules/ALSDK.swiftmodule/arm64-apple-ios.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			sHm+UTjizfL+zY3zUxwgX6NbmUetWYv71tHIldYfO24=
+			UpAJ9LizPlEsHTP5elOS0hVk/bMUrkr5toUIFNBXMQw=
 			</data>
 		</dict>
 		<key>Modules/ALSDK.swiftmodule/arm64-apple-ios.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			bHf3Xl4hvt4o3rL3LBdLi23NAh96/d7j+pr8zyjiDKc=
+			LnOShCSBkGTomZk3v5n7cvDiM8BHbgsQLGoFKLwbg6s=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>
