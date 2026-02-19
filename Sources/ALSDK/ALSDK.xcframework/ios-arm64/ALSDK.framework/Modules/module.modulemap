@@ -1,0 +1,6 @@
+framework module ALSDK {
+  umbrella header "ALSDK.h"
+  export *
+
+  module * { export * }
+}

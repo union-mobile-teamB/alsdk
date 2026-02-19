@@ -1,0 +1,518 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 6.0.2 effective-5.10 (swiftlang-6.0.2.1.2 clang-1600.0.26.4)
+// swift-module-flags: -target x86_64-apple-ios18.1-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -enable-bare-slash-regex -module-name ALSDK
+@_exported import ALSDK
+import CryptoKit
+import DeveloperToolsSupport
+import Foundation
+import Swift
+import SwiftUI
+import UIKit
+import _Concurrency
+import _StringProcessing
+import _SwiftConcurrencyShims
+public protocol AngkorSDKAuthDelegate : AnyObject {
+  func didExpiredUserSession(reason: ALSDK.SDKError)
+}
+@_hasMissingDesignatedInitializers public class Auth {
+  public static let shared: ALSDK.Auth
+  public var loginStatus: ALSDK.LoginStatus {
+    get
+  }
+  public func setDelegate(_ delegate: any ALSDK.AngkorSDKAuthDelegate)
+  @objc deinit
+}
+extension ALSDK.Auth : ALSDK.AngkorSDKCommonListener {
+  public func didExpiredUserSession(reason: ALSDK.SDKError)
+}
+@_hasMissingDesignatedInitializers final public class AuthApi {
+  public static let shared: ALSDK.AuthApi
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class AuthController {
+  public static let shared: ALSDK.AuthController
+  public func isFromAngkorLifeAuthUri(uri: Foundation.URL) -> Swift.Bool
+  public func handleUriFromAngkorLifeOAuth(uri: Foundation.URL, onSuccess: @escaping (_ angkorID: Swift.String, _ userID: Swift.String) -> Swift.Void, onFailure: @escaping ((any Swift.Error)?) -> Swift.Void)
+  public func requestOAuthWithAngkorLife(onSuccess: @escaping () -> Swift.Void, onFailure: @escaping (any Swift.Error) -> Swift.Void)
+  public func getOAuth() throws -> ALSDK.OAuth
+  @objc deinit
+}
+extension ALSDK.AuthController {
+  public func loginWithAngkorLife(authKey: Swift.String, angkorID: Swift.String, userID: Swift.String, onFinish: @escaping (((any Swift.Error)?) -> Swift.Void))
+  public func loginWithIDPW(authKey: Swift.String, userID: Swift.String, password: Swift.String, onFinish: @escaping (((any Swift.Error)?) -> Swift.Void))
+  public func loginWithExternalOAuth(authKey: Swift.String, userID: Swift.String, token: Swift.String, externalOAuthProviderType: ALSDK.ExternalOAuthProviderType, onFinish: @escaping (((any Swift.Error)?) -> Swift.Void))
+}
+extension ALSDK.AuthController {
+  public func logout(onFinish: @escaping ((any Swift.Error)?) -> Swift.Void)
+}
+extension ALSDK.AuthController {
+  public func leaveService(onFinish: @escaping ((any Swift.Error)?) -> Swift.Void)
+}
+extension ALSDK.AuthController {
+  public func makeParametersForAngkorLife() -> [Swift.String : Any]
+}
+public protocol OAuthManagable {
+  func setOAuth(_ oauth: ALSDK.OAuth)
+  func getOAuth() -> ALSDK.OAuth?
+  func deleteOAuth()
+}
+@_hasMissingDesignatedInitializers final public class OAuthManager : ALSDK.OAuthManagable {
+  public static let manager: ALSDK.OAuthManager
+  final public func setOAuth(_ oauth: ALSDK.OAuth)
+  final public func getOAuth() -> ALSDK.OAuth?
+  final public func deleteOAuth()
+  @objc deinit
+}
+
+@_hasMissingDesignatedInitializers public class ChatSDK {
+  public static let shared: ALSDK.ChatSDK
+  public func sendItemRequestMessage(itemID: Swift.Int, receiver: ALSDK.Friend, completion: @escaping ((any Swift.Error)?) -> Swift.Void)
+  public func sendInvitationMesssage(itemID: Swift.Int, receiver: ALSDK.Friend, completion: @escaping ((any Swift.Error)?) -> Swift.Void)
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class ChatController {
+  public static let shared: ALSDK.ChatController
+  public func sendItemRequestMessage(itemID: Swift.Int, receiver: ALSDK.Friend, completion: @escaping ((any Swift.Error)?) -> Swift.Void)
+  public func sendInvitationMesssage(itemID: Swift.Int, receiver: ALSDK.Friend, completion: @escaping ((any Swift.Error)?) -> Swift.Void)
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class Properties {
+  public static func saveCodable<T>(key: Swift.String, data: T?) where T : Swift.Decodable, T : Swift.Encodable
+  public static func loadCodable<T>(key: Swift.String) -> T? where T : Swift.Decodable, T : Swift.Encodable
+  public static func delete(key: Swift.String)
+  @objc deinit
+}
+public enum SDKError : Swift.Error {
+  case AppsFailed(reason: ALSDK.AppsFailureReason)
+  case OtherFailed(reason: ALSDK.OtherFailureReson, message: Swift.String?)
+  case APIFailed(errorInfo: ALSDK.ErrorInfo)
+  case APIFailedWithReason(ALSDK.APIFailedReason)
+  case ClientFailed(ALSDK.ClientFailedReaspon)
+}
+public enum ClientFailedReaspon {
+  case tokenNotFound
+  case oauthNotFound
+  public static func == (a: ALSDK.ClientFailedReaspon, b: ALSDK.ClientFailedReaspon) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public enum OtherFailureReson {
+  case invalidURL
+  case unknown
+  public static func == (a: ALSDK.OtherFailureReson, b: ALSDK.OtherFailureReson) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public enum AppsFailureReason : Swift.String {
+  case AppLaunchError
+  case FailedGetUserData
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public enum APIFailedReason {
+  case UnknownResponse
+  public static func == (a: ALSDK.APIFailedReason, b: ALSDK.APIFailedReason) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension ALSDK.SDKError {
+  public init?(response: Foundation.HTTPURLResponse, data: Foundation.Data)
+  public init(reason: ALSDK.OtherFailureReson = .unknown, message: Swift.String? = nil)
+}
+public enum LogEvent : Swift.String {
+  case verbose
+  case debug
+  case info
+  case warning
+  case error
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers public class SDKLog {
+  public static func verbose(_ object: Any, filename: Swift.String = #file, line: Swift.Int = #line, column: Swift.Int = #column, funcName: Swift.String = #function)
+  public class func debug(_ object: Any, filename: Swift.String = #file, line: Swift.Int = #line, column: Swift.Int = #column, funcName: Swift.String = #function)
+  public class func info(_ object: Any, filename: Swift.String = #file, line: Swift.Int = #line, column: Swift.Int = #column, funcName: Swift.String = #function)
+  public class func warning(_ object: Any, filename: Swift.String = #file, line: Swift.Int = #line, column: Swift.Int = #column, funcName: Swift.String = #function)
+  public class func error(_ object: Any, filename: Swift.String = #file, line: Swift.Int = #line, column: Swift.Int = #column, funcName: Swift.String = #function)
+  @objc deinit
+}
+extension Foundation.Date {
+  public func toString() -> Swift.String
+}
+@_hasMissingDesignatedInitializers public class SDKUtils {
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class Hosts {
+  final public let lifeAuth: Swift.String
+  @objc deinit
+}
+public enum HostType {
+  case LifeAuth
+  public var host: Swift.String {
+    get
+  }
+  public static func == (a: ALSDK.HostType, b: ALSDK.HostType) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers public class Paths {
+  public static let authLife: Swift.String
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class Urls {
+  public static func compose(_ hostType: ALSDK.HostType, path: Swift.String) -> Swift.String
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class URLUtil {
+  public static func makeUrlWithParameters(url: Swift.String, prarmeters: [Swift.String : Any]?) -> Foundation.URL?
+  public static func parseUri<T>(from uri: Foundation.URL) -> T? where T : Swift.Decodable
+  @objc deinit
+}
+@_documentation(visibility: private) extension Swift.KeyedDecodingContainer {
+  public func decode(_ type: [Any].Type, forKey key: Swift.KeyedDecodingContainer<K>.Key) throws -> [Any]
+  public func decode(_ type: [Swift.String : Any].Type, forKey key: Swift.KeyedDecodingContainer<K>.Key) throws -> [Swift.String : Any]
+  public func decodeIfPresent(_ type: [Any].Type, forKey key: Swift.KeyedDecodingContainer<K>.Key) throws -> [Any]?
+  public func decodeIfPresent(_ type: [Swift.String : Any].Type, forKey key: Swift.KeyedDecodingContainer<K>.Key) throws -> [Swift.String : Any]?
+}
+extension Swift.Dictionary {
+  public var urlQueryItems: [Foundation.URLQueryItem]? {
+    get
+  }
+}
+@_documentation(visibility: private) extension Swift.KeyedEncodingContainer {
+  public mutating func encode(_ value: [Swift.String : Any], forKey key: Swift.KeyedEncodingContainer<K>.Key) throws
+  public mutating func encode(_ value: [Any], forKey key: Swift.KeyedEncodingContainer<K>.Key) throws
+  public mutating func encodeIfPresent(_ value: [Swift.String : Any]?, forKey key: Swift.KeyedEncodingContainer<K>.Key) throws
+  public mutating func encodeIfPresent(_ value: [Any]?, forKey key: Swift.KeyedEncodingContainer<K>.Key) throws
+}
+extension UIKit.UIApplication {
+  @_Concurrency.MainActor @preconcurrency public class func getMostTopViewController(base: UIKit.UIViewController? = nil) -> UIKit.UIViewController?
+  @_Concurrency.MainActor @preconcurrency public class func sdkKeyWindow() -> UIKit.UIWindow?
+}
+public enum ALHTTPMethod {
+  case get
+  case post
+  case delete
+  public static func == (a: ALSDK.ALHTTPMethod, b: ALSDK.ALHTTPMethod) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public enum EncodingType : Swift.CaseIterable {
+  case jsonEncoding
+  case urlEncoding
+  public static func == (a: ALSDK.EncodingType, b: ALSDK.EncodingType) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public typealias AllCases = [ALSDK.EncodingType]
+  nonisolated public static var allCases: [ALSDK.EncodingType] {
+    get
+  }
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public let API: ALSDK.Api
+@_hasMissingDesignatedInitializers public class Api {
+  public static let shared: ALSDK.Api
+  public func responseData(_ httpMethod: ALSDK.ALHTTPMethod, url: Swift.String, encoding: ALSDK.EncodingType = .jsonEncoding, parameters: [Swift.String : Any]? = nil, headers: [Swift.String : Swift.String] = [:], authKeyIntercept: Swift.Bool = true, completion: @escaping (Foundation.HTTPURLResponse?, Foundation.Data?, (any Swift.Error)?) -> Swift.Void)
+  @objc deinit
+}
+extension ALSDK.Api {
+  public func handleAuthKeyOnError(sdkError: ALSDK.SDKError)
+}
+@_hasMissingDesignatedInitializers final public class TokenManager {
+  public static let manager: ALSDK.TokenManager
+  final public func getToken() -> ALSDK.Token?
+  final public func deleteToken()
+  final public func getTokenString() -> Swift.String?
+  @objc deinit
+}
+@_Concurrency.MainActor @preconcurrency public struct CircleCheckBoxView : SwiftUICore.View {
+  @_Concurrency.MainActor @preconcurrency public init(isChecked: SwiftUICore.Binding<Swift.Bool>, title: Swift.String)
+  @_Concurrency.MainActor @preconcurrency public var body: some SwiftUICore.View {
+    get
+  }
+  public typealias Body = @_opaqueReturnTypeOf("$s5ALSDK18CircleCheckBoxViewV4bodyQrvp", 0) __
+}
+
+@_Concurrency.MainActor @preconcurrency public struct EnableBtn : SwiftUICore.View {
+  @_Concurrency.MainActor @preconcurrency public init(isEnable: Swift.Bool, buttonTitle: Swift.String, onTapBtn: @escaping () -> Swift.Void, enableColor: SwiftUICore.Color, enableTitleColor: SwiftUICore.Color, disableColor: SwiftUICore.Color, disableTitleColor: SwiftUICore.Color, verticalPadding: CoreFoundation.CGFloat = 12)
+  @_Concurrency.MainActor @preconcurrency public var body: some SwiftUICore.View {
+    get
+  }
+  public typealias Body = @_opaqueReturnTypeOf("$s5ALSDK9EnableBtnV4bodyQrvp", 0) __
+}
+
+@_Concurrency.MainActor @preconcurrency public struct XBtn : SwiftUICore.View {
+  @_Concurrency.MainActor @preconcurrency public init(onTapX: (() -> Swift.Void)? = nil)
+  @_Concurrency.MainActor @preconcurrency public var body: some SwiftUICore.View {
+    get
+  }
+  public typealias Body = @_opaqueReturnTypeOf("$s5ALSDK4XBtnV4bodyQrvp", 0) __
+}
+
+@_Concurrency.MainActor @preconcurrency public struct CorpImageView : SwiftUICore.View {
+  @_Concurrency.MainActor @preconcurrency public init(corpImageUrlString: Swift.String)
+  @_Concurrency.MainActor @preconcurrency public var body: some SwiftUICore.View {
+    get
+  }
+  public typealias Body = @_opaqueReturnTypeOf("$s5ALSDK13CorpImageViewV4bodyQrvp", 0) __
+}
+
+@_Concurrency.MainActor @preconcurrency public struct GrayDotInfoListView : SwiftUICore.View {
+  @_Concurrency.MainActor @preconcurrency public init(infoList: [Swift.String])
+  @_Concurrency.MainActor @preconcurrency public var body: some SwiftUICore.View {
+    get
+  }
+  public typealias Body = @_opaqueReturnTypeOf("$s5ALSDK19GrayDotInfoListViewV4bodyQrvp", 0) __
+}
+
+public protocol AngkorSDKCommonListener : AnyObject {
+  func didExpiredUserSession(reason: ALSDK.SDKError)
+}
+@_hasMissingDesignatedInitializers final public class AngkorSDK {
+  public static let shared: ALSDK.AngkorSDK
+  public static func initSDK(redirectUri: Swift.String, appKey: Swift.String)
+  final public func setListender(_ listener: any ALSDK.AngkorSDKCommonListener)
+  @objc deinit
+}
+extension ALSDK.AngkorSDK {
+  final public func getRedirectURI() -> Swift.String
+  final public func getAppKey() -> Swift.String
+}
+public class AES256Algorithm : ALSDK.CryptoAlgorithm {
+  public init()
+  public func encrypt(data: Foundation.Data) throws -> Foundation.Data
+  public func decrypt(data: Foundation.Data) throws -> Foundation.Data
+  @objc deinit
+}
+public protocol CryptoAlgorithm {
+  func encrypt(data: Foundation.Data) throws -> Foundation.Data
+  func decrypt(data: Foundation.Data) throws -> Foundation.Data
+}
+public enum SDKCryptoError : Swift.Error {
+  case invalidData
+  case encryptionFailed
+  case decryptionFailed
+  public static func == (a: ALSDK.SDKCryptoError, b: ALSDK.SDKCryptoError) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers public class SDKCrypto {
+  public static let shared: ALSDK.SDKCrypto
+  public func encrypt(data: Foundation.Data, algorithm: any ALSDK.CryptoAlgorithm) throws -> Foundation.Data
+  public func decrypt(data: Foundation.Data, algorithm: any ALSDK.CryptoAlgorithm) throws -> Foundation.Data
+  @objc deinit
+}
+extension ALSDK.SDKCrypto {
+  public static func passwordEncrypt(_ password: Swift.String?) -> Swift.String?
+}
+@_hasMissingDesignatedInitializers public class R {
+  @objc deinit
+}
+extension SwiftUICore.Color {
+  public enum SDKColor : Swift.String {
+    case Divider
+    case Gray_03
+    case Gray_06
+    case Label_Secondary
+    case Label_Tertiary
+    case Label_Primary
+    case Primarya
+    public init?(rawValue: Swift.String)
+    @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
+    public typealias RawValue = Swift.String
+    public var rawValue: Swift.String {
+      get
+    }
+  }
+  public static func sdkColor(_ color: SwiftUICore.Color.SDKColor) -> SwiftUICore.Color
+}
+public struct SDKFonts {
+  public static func registerCustomFonts()
+}
+extension SwiftUICore.View {
+  @_Concurrency.MainActor @preconcurrency public func loadCustomFonts() -> some SwiftUICore.View
+  
+}
+extension SwiftUICore.Font {
+  public enum SDKWeight : Swift.String {
+    case bold
+    case medium
+    case regular
+    case semiBold
+    public init?(rawValue: Swift.String)
+    @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
+    public typealias RawValue = Swift.String
+    public var rawValue: Swift.String {
+      get
+    }
+  }
+  public static func kantumRuy(_ size: CoreFoundation.CGFloat, weight: SwiftUICore.Font.SDKWeight) -> SwiftUICore.Font
+}
+extension SwiftUICore.Image {
+  public enum SDKImage : Swift.String {
+    case ic_check_circle_fill_disabled_quaternary_32
+    case ic_check_circle_fill_enable_quaternary_32
+    case ic_chevron_right_line_bk_20
+    case ic_close_line_bk_24
+    public init?(rawValue: Swift.String)
+    @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
+    public typealias RawValue = Swift.String
+    public var rawValue: Swift.String {
+      get
+    }
+  }
+  public static func sdkImage(_ image: SwiftUICore.Image.SDKImage) -> SwiftUICore.Image
+}
+@_hasMissingDesignatedInitializers public class FriendController {
+  public static let shared: ALSDK.FriendController
+  public func getFriends(completion: @escaping ([ALSDK.Friend]?, (any Swift.Error)?) -> Swift.Void)
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class FriendSDK {
+  public static let shared: ALSDK.FriendSDK
+  public func getFriends(completion: @escaping ([ALSDK.Friend]?, (any Swift.Error)?) -> Swift.Void)
+  @objc deinit
+}
+public enum AuthType : Swift.String {
+  case angkorLife
+  case login
+  case social
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public enum ExternalOAuthProviderType : Swift.String, Swift.CaseIterable {
+  case Google
+  case Apple
+  public init?(rawValue: Swift.String)
+  public typealias AllCases = [ALSDK.ExternalOAuthProviderType]
+  public typealias RawValue = Swift.String
+  nonisolated public static var allCases: [ALSDK.ExternalOAuthProviderType] {
+    get
+  }
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public enum LoginStatus {
+  case loggedIn(oauth: ALSDK.OAuth)
+  case loggedOut
+}
+public struct OAuth : Swift.Codable {
+  public var angkorID: Swift.String
+  public var userID: Swift.String
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public enum MessageType : Swift.String {
+  case I
+  case R
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public struct ErrorInfo : Swift.Codable {
+  public let authKey: Swift.String?
+  public let code: Swift.Int
+  public let message: Swift.String
+  public init(from decoder: any Swift.Decoder) throws
+  public func encode(to encoder: any Swift.Encoder) throws
+}
+public struct Token : Swift.Codable {
+  public var token: Swift.String
+  public var tokenType: Swift.String
+  public init(token: Swift.String, tokenType: Swift.String)
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct TokenResponseModelGrantType : Swift.Codable {
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct Friend {
+  public var angkorID: Swift.String
+  public var userID: Swift.String
+  public var name: Swift.String
+  public var profileUrl: Swift.String?
+}
+public protocol PointInterface {
+  var value: Swift.Int { get }
+}
+public struct Point : ALSDK.PointInterface {
+  public var value: Swift.Int
+}
+public struct PointPaymentResult {
+  public var paidPoints: Swift.Int
+}
+@_hasMissingDesignatedInitializers public class AngkorPoint {
+  public static let shared: ALSDK.AngkorPoint
+  public func getPoint(completion: @escaping ((ALSDK.Point?, (any Swift.Error)?) -> Swift.Void))
+  public func requestAngkorPointPayment(point: Swift.Int, requestTime: Swift.String, transactionID: Swift.String, productCode: Swift.String, productCategory: Swift.String? = nil, customFields: Swift.String? = nil, hash: Swift.String, completion: @escaping (ALSDK.PointPaymentResult?, (any Swift.Error)?) -> Swift.Void)
+  @objc deinit
+}
+extension ALSDK.ClientFailedReaspon : Swift.Equatable {}
+extension ALSDK.ClientFailedReaspon : Swift.Hashable {}
+extension ALSDK.OtherFailureReson : Swift.Equatable {}
+extension ALSDK.OtherFailureReson : Swift.Hashable {}
+extension ALSDK.AppsFailureReason : Swift.Equatable {}
+extension ALSDK.AppsFailureReason : Swift.Hashable {}
+extension ALSDK.AppsFailureReason : Swift.RawRepresentable {}
+extension ALSDK.APIFailedReason : Swift.Equatable {}
+extension ALSDK.APIFailedReason : Swift.Hashable {}
+extension ALSDK.LogEvent : Swift.Equatable {}
+extension ALSDK.LogEvent : Swift.Hashable {}
+extension ALSDK.LogEvent : Swift.RawRepresentable {}
+extension ALSDK.HostType : Swift.Equatable {}
+extension ALSDK.HostType : Swift.Hashable {}
+extension ALSDK.ALHTTPMethod : Swift.Equatable {}
+extension ALSDK.ALHTTPMethod : Swift.Hashable {}
+extension ALSDK.EncodingType : Swift.Equatable {}
+extension ALSDK.EncodingType : Swift.Hashable {}
+extension ALSDK.CircleCheckBoxView : Swift.Sendable {}
+extension ALSDK.EnableBtn : Swift.Sendable {}
+extension ALSDK.XBtn : Swift.Sendable {}
+extension ALSDK.CorpImageView : Swift.Sendable {}
+extension ALSDK.GrayDotInfoListView : Swift.Sendable {}
+extension ALSDK.SDKCryptoError : Swift.Equatable {}
+extension ALSDK.SDKCryptoError : Swift.Hashable {}
+extension SwiftUICore.Color.SDKColor : Swift.Equatable {}
+extension SwiftUICore.Color.SDKColor : Swift.Hashable {}
+extension SwiftUICore.Color.SDKColor : Swift.RawRepresentable {}
+extension SwiftUICore.Font.SDKWeight : Swift.Equatable {}
+extension SwiftUICore.Font.SDKWeight : Swift.Hashable {}
+extension SwiftUICore.Font.SDKWeight : Swift.RawRepresentable {}
+extension SwiftUICore.Image.SDKImage : Swift.Equatable {}
+extension SwiftUICore.Image.SDKImage : Swift.Hashable {}
+extension SwiftUICore.Image.SDKImage : Swift.RawRepresentable {}
+extension ALSDK.AuthType : Swift.Equatable {}
+extension ALSDK.AuthType : Swift.Hashable {}
+extension ALSDK.AuthType : Swift.RawRepresentable {}
+extension ALSDK.ExternalOAuthProviderType : Swift.Equatable {}
+extension ALSDK.ExternalOAuthProviderType : Swift.Hashable {}
+extension ALSDK.ExternalOAuthProviderType : Swift.RawRepresentable {}
+extension ALSDK.MessageType : Swift.Equatable {}
+extension ALSDK.MessageType : Swift.Hashable {}
+extension ALSDK.MessageType : Swift.RawRepresentable {}
